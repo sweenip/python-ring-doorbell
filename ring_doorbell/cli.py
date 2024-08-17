@@ -228,7 +228,7 @@ async def list_command(ring: Ring) -> None:
         echo(device)
 
 
-@cli.command()
+@cli.command(name="motion_detection")
 @pass_ring
 @click.pass_context
 @click.option(
