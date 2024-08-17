@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 
 from ring_doorbell import Auth, AuthenticationError, Requires2FAError, Ring, RingGeneric
+from ring_doorbell.const import (
+    SETTINGS_ENDPOINT,
+)
 
 user_agent = "ring-doorbell-sweeni"  # Change this
 cache_file = Path(user_agent + ".token.cache")
@@ -57,6 +60,44 @@ def main() -> None:
     for device in devices.other:
         print(f"Other         =>Name : {device.name} \t kind: {device.kind} \t ID: {device.id}")
 
+    # sweeni@TX1-1010035SLT2:/mnt/c/d/code/python-ring-doorbell$ python3 sweeni.py 
+    # Doorbots      =>Name : Front Door        kind: doorbell_v4       ID: 7349477
+    # Chimes        =>Name : Upstairs          kind: chime_v2          ID: 86994969
+    # Chimes        =>Name : Hallway   kind: chime     ID: 7868298
+    # Chimes        =>Name : Patio     kind: chime_v2          ID: 86994197
+
+    # sweeni@TX1-1010035SLT2:/mnt/c/d/code/python-ring-doorbell$ python3 ring_doorbell/cli.py list
+    # ---------------------------------
+    # Ring CLI
+    # Front Door (doorbell_v4)
+    # Upstairs (chime_v2)
+    # Hallway (chime)
+    # Patio (chime_v2)
+
+
+    # sweeni@TX1-1010035SLT2:/mnt/c/d/code/python-ring-doorbell$ python3 ring_doorbell/cli.py motion_detection --device-name "Front Door" --on
+    # ---------------------------------
+    # Ring CLI
+    # Front Door (doorbell_v4) already has motion detection on
+
+
+    device = ring.get_device_by_name("Front Door")
+    url = SETTINGS_ENDPOINT.format(device.device_api_id)
+    # '/devices/v1/devices/7349477/settings'
+    payload = {"motion_settings": {"motion_detection_enabled": True}}
+    
+    # payload = {"duration": 180}
+    # CHIMES_ENDPOINT = "/clients_api/chimes/{0}"
+    # url = "/clients_api/chimes/86994969/snooze"
+    
+    device._ring.query(url, method="PATCH", json=payload)
+    device._ring.update_devices()
+
+
 
 if __name__ == "__main__":
     main()
+
+
+
+

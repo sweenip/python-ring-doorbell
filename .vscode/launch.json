@@ -12,8 +12,16 @@
             "program": "ring_doorbell/cli.py",
             "console": "integratedTerminal",
             "args": [
-                "motion_detection", "--device-name", "Front Door" , "--off"
+                "motion_detection", "--device-name", "Front Door" , "--on"
             ]
+        },
+        {
+            "name": "Python Debugger: current file",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": []
         }
     ]
 }

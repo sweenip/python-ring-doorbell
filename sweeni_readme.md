@@ -20,3 +20,9 @@ launch.json
     ]
 }
 ```
+
+No way to see and control chimes from browser.. will need to intercept the app
+
+![alt text](image.png)
+
+![alt text](image-1.png)
