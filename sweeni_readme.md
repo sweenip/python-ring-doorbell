@@ -21,7 +21,7 @@ launch.json
 }
 ```
 
-No way to see and control chimes from browser.. will need to intercept the app
+No way to see and control chimes from browser.. will need to intercept the network traffic from mobile app
 
 ![alt text](image.png)
 
